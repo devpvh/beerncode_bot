@@ -1,0 +1,41 @@
+{
+  "name": "beerncode-bot",
+  "version": "1.0.0",
+  "description": "Bot de auxílio do canal Beer&&Code",
+  "main": "index.js",
+  "engines": {
+    "node": "4.4.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "date-format": "0.0.2",
+    "express": "^4.14.0",
+    "moment": "^2.14.1",
+    "node-github": "0.0.3",
+    "node-telegram-bot-api": "^0.17.0",
+    "request": "^2.73.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rwaltenberg/beerncoder_bot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot"
+  ],
+  "author": {
+    "name": "Rodrigo waltenberg",
+    "url": "http://github.com/rwaltenberg"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rwaltenberg/beerncoder_bot/issues"
+  },
+  "homepage": "https://github.com/rwaltenberg/beerncoder_bot#readme"
+}
