@@ -1,12 +1,12 @@
-# BeerNCoder
+# BeerNCode BOT
 
 <a href="https://telegram.org"><img align="right" width="130" height="130" src="https://telegram.org/img/t_logo.png"></a>
 
-Helps coders
+Bot social do grupo **devPVH** no Telegram. 
 
 ## Contributing
 
-Pull requests are welcome.
+Pull requests são bem vindos!
 
 ## License
 
