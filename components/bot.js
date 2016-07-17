@@ -25,7 +25,7 @@ console.log('bot server started...');
 // Colocar os comandos aqui. Cada um no seu arquivo, por favor.
 require('../commands/dia-tarde-noite')(bot, me);
 require('../commands/horas')(bot, me);
-require('../commands/wikipedia')(bot);
+require('../commands/definicao')(bot);
 require('../commands/github')(bot);
 require('../commands/lol')(bot);
 
