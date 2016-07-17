@@ -33,12 +33,17 @@ module.exports = (bot) => {
             (err, response) => {
               if (!err && response) {
                 var filter = (/(<p><strong>(?:.*)<\/p>)/i).exec(response);
-                var text = filter[1].replace(/(<([^>]+)>)/ig, '').replace(/(\[([^\]]*)\])/ig, '');
+                if (filter && filter.length) {
+                  var text = filter[1].replace(/(<([^>]+)>)/ig, '').replace(/(\[([^\]]*)\])/ig, '');
 
-                var resposta = 'De acordo com a <b>Desciclopedia</b>:\n\n{1}\n\nMais detalhes: https://desciclopedia.org/wiki/{0}'
-                  .format(busca, text.slice(0, getPosition(text, '.', 2) + 1));
+                  var resposta = 'De acordo com a <b>Desciclopedia</b>:\n\n{1}\n\nMais detalhes: https://desciclopedia.org/wiki/{0}'
+                    .format(busca, text.slice(0, getPosition(text, '.', 2) + 1));
 
-                bot.sendMessage(chatId, resposta, { reply_to_message_id: msg.message_id, parse_mode: 'HTML', disable_web_page_preview: true });
+                  bot.sendMessage(chatId, resposta, { reply_to_message_id: msg.message_id, parse_mode: 'HTML', disable_web_page_preview: true });
+                }
+                else {
+                  wikipedia();
+                }
               }
               else {
                 wikipedia();
