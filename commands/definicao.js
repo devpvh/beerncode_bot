@@ -15,11 +15,18 @@ module.exports = (bot) => {
 
           bot.sendMessage(chatId, resposta, { reply_to_message_id: msg.message_id, parse_mode: 'HTML', disable_web_page_preview: true });
         },
-        () => bot.sendMessage(chatId, 'Sei lá ¯\\_(ツ)_/¯', { reply_to_message_id: msg.message_id, parse_mode: 'HTML', disable_web_page_preview: true })
+        () => {
+          console.log('Não encontrado na Wikipedia: %s', busca);
+          bot.sendMessage(chatId, 'Sei lá ¯\\_(ツ)_/¯', { reply_to_message_id: msg.message_id, parse_mode: 'HTML', disable_web_page_preview: true })
+        }
       );
     };
 
     var desciclopedia = () => {
+      var fallbackToWikipedia = () => {
+        console.log('Não encontrado na Desciclopedia: %s', busca);
+        wikipedia();
+      };
       searchTerm('https://desciclopedia.org/api.php', busca).then(
         (data) => {
           wikiClient.searchArticle(
@@ -32,26 +39,30 @@ module.exports = (bot) => {
             },
             (err, response) => {
               if (!err && response) {
-                var filter = (/(<p><strong>(?:.*)<\/p>)/i).exec(response);
+                var filter = (/(<p>.{0,4}<strong>(?:.*)<\/p>)/i).exec(response);
                 if (filter && filter.length) {
-                  var text = filter[1].replace(/(<([^>]+)>)/ig, '').replace(/(\[([^\]]*)\])/ig, '');
+                  console.log(filter);
+                  var text = filter[1]
+                    .replace(/(<([^>]+)>)/ig, '')
+                    .replace(/{{PAGENAME}}/ig, data.title)
+                    .replace(/({{([^\}\}]+)}})/ig, '[$2]');
 
                   var resposta = 'De acordo com a <b>Desciclopedia</b>:\n\n{1}\n\nMais detalhes: https://desciclopedia.org/wiki/{0}'
-                    .format(busca, text.slice(0, getPosition(text, '.', 2) + 1));
+                    .format(data.title, text.slice(0, getPosition(text, '.', 2) + 1));
 
                   bot.sendMessage(chatId, resposta, { reply_to_message_id: msg.message_id, parse_mode: 'HTML', disable_web_page_preview: true });
                 }
                 else {
-                  wikipedia();
+                  fallbackToWikipedia();
                 }
               }
               else {
-                wikipedia();
+                fallbackToWikipedia();
               }
             }
           );
         },
-        () => wikipedia()
+        () => fallbackToWikipedia()
       );
     };
 
