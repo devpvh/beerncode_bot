@@ -1,5 +1,5 @@
-module.exports = function (bot) {
-  var lol = function (msg) {
+module.exports = (bot) => {
+  var lol = (msg) => {
     var chatId = msg.chat.id;
 
     if(Math.floor(Math.random()*100) > 50) {

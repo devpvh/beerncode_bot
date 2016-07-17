@@ -1,8 +1,8 @@
 var moment = require('moment'),
 tools = require('../components/tools.js');
 
-module.exports = function (bot, me) {
-  bot.onText(/que horas são/i, function (msg) {
+module.exports = (bot, me) => {
+  bot.onText(/que horas são/i, (msg) => {
     var chatId = msg.chat.id;
 
     if (!tools.isTalkingTo(msg, me)) {

@@ -1,7 +1,7 @@
 'use strict';
 var _ = require('underscore');
 
-var extractMention = module.exports.extractMention = function (text, entity) {
+var extractMention = module.exports.extractMention = (text, entity) => {
   if (entity.type !== 'mention') {
     console.error('Esta entity não é uma mention');
     return;
@@ -10,12 +10,12 @@ var extractMention = module.exports.extractMention = function (text, entity) {
   return text.slice(entity.offset, entity.offset + entity.length);
 };
 
-module.exports.isTalkingTo = function (msg, who, everyone) {
+module.exports.isTalkingTo = (msg, who, everyone) => {
   var hasMentions = false;
   var mentionsTarget = false;
   var countsEveryone = typeof everyone === 'boolean' ? everyone : true;
   if (msg.entities) {
-    _.each(msg.entities, function (entity) {
+    _.each(msg.entities, (entity) => {
       if (entity.type === 'mention') {
         hasMentions = true;
 
