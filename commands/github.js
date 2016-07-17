@@ -1,9 +1,9 @@
 var GitHubApi = require('node-github'),
   moment = require('moment');
 
-module.exports = function (bot) {
+module.exports = (bot) => {
 
-  bot.onText(/(http|ftp|https):\/\/(github)+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/i, function (msg, matches) {
+  bot.onText(/(http|ftp|https):\/\/(github)+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/i, (msg, matches) => {
     var chatId = msg.chat.id,
       msgGitHub = matches[4].split('/');
 
@@ -22,7 +22,7 @@ module.exports = function (bot) {
         repo: msgGitHub[2]
 
       },
-      function (error, response) {
+      (error, response) => {
         if (!response) {
           bot.sendMessage(chatId, 'Não achei esse repositório... Tem certeza que ele existe? 😅', { reply_to_message_id: msg.message_id });
 

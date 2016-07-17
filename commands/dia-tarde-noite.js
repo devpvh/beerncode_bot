@@ -1,8 +1,8 @@
 var moment = require('moment'),
   tools = require('../components/tools.js');
 
-module.exports = function (bot, me) {
-  bot.onText(/(bo[am] ((?:dia|tarde|noite)))/i, function (msg, matches) {
+module.exports = (bot, me) => {
+  bot.onText(/(bo[am] ((?:dia|tarde|noite)))/i, (msg, matches) => {
     if (!tools.isTalkingTo(msg, me)) {
       return;
     }

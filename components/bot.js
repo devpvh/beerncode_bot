@@ -15,9 +15,7 @@ else {
   bot = new TelegramBot(token, { polling: true });
 }
 
-bot.getMe().then(function(user){
-  me = user.username;
-});
+bot.getMe().then((user) => me = user.username);
 
 console.log('bot server started...');
 
