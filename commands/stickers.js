@@ -7,7 +7,7 @@ module.exports = (bot) => {
   var learnSticker = (msg) => {
     db.connect(dburi, (err, conn) => {
       if (err) {
-        console.log(err);
+        console.error(err);
         conn.close();
         return;
       }
@@ -34,8 +34,8 @@ module.exports = (bot) => {
           }
 
           if (!item) {
-            data.timesRead = 0;
-            data.timesWritten = 0;
+            data.timesRead = 1;
+            data.timesUsed = 0;
 
             stickers.insert(data, (insErr) => {
               if (insErr) {
@@ -45,7 +45,11 @@ module.exports = (bot) => {
             });
           }
           else {
-            conn.close();
+            stickers.update(
+              { _id: item['_id'] },
+              { $inc: { timesRead: 1 } },
+              () => conn.close()
+            );
           }
         });
       });
@@ -53,12 +57,11 @@ module.exports = (bot) => {
   };
 
   var useSticker = (msg) => {
-    console.log(msg);
     var chatId = msg.chat.id;
 
     db.connect(dburi, (err, conn) => {
       if (err) {
-        console.log(err);
+        console.error(err);
         conn.close();
         return;
       }
@@ -67,14 +70,18 @@ module.exports = (bot) => {
       stickers
         .find({ emoji: msg.text })
         .toArray((findErr, items) => {
-          if(findErr){
+          if (findErr) {
             console.error(findErr);
           }
           else if (items.length) {
             var sticker = items.getRandom();
+            stickers.update(
+              { _id: sticker['_id'] },
+              { $inc: { timesUsed: 1 } },
+              () => conn.close()
+            );
             bot.sendSticker(chatId, sticker.fileId, { reply_to_message_id: msg.message_id });
           }
-          conn.close();
         });
     });
   };
