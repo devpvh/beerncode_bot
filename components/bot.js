@@ -26,6 +26,7 @@ require('../commands/horas')(bot, me);
 require('../commands/definicao')(bot);
 require('../commands/github')(bot);
 require('../commands/lol')(bot);
+require('../commands/stickers')(bot);
 
 
 module.exports = bot;

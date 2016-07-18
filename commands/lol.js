@@ -23,7 +23,7 @@ module.exports = (bot) => {
     bot.sendMessage(chatId, resposta, { reply_to_message_id: msg.message_id });
   };
 
-  bot.onText(/(?:kkk|haha|hehe|hau|hueh|hihi|😂)/i, lol);
+  bot.onText(/(?:kkk|haha|hehe|hau|hueh|hihi)/i, lol);
   bot.onText(/\b(?:lol|lfmao)\b/i, lol);
   bot.onText(/\brs\b/, lol);
 };
